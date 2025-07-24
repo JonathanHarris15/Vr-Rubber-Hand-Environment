@@ -8,15 +8,21 @@ public class Offset_Manager : MonoBehaviour
 
     public Transform right_brush_offset;
     public Transform left_brush_offset;
+
     public Transform table_offset;
+
+    public Transform brush_locator;
 
     public Transform left_brush_point;
     public Transform right_brush_point;
+
     public Transform table_point;
 
     public SkinnedMeshRenderer right_hand;
 
     public float manual_table_offset;
+
+    public Transform ramp_offset;
 
     void Start()
     {
@@ -30,8 +36,8 @@ public class Offset_Manager : MonoBehaviour
         if (Input.GetKeyUp("b"))
         {
            
-            Vector3 rightDeltaWorld = table_point.position - right_brush_point.position;
-            Vector3 leftDeltaWorld = table_point.position - left_brush_point.position;
+            Vector3 rightDeltaWorld = brush_locator.position - right_brush_point.position;
+            Vector3 leftDeltaWorld = brush_locator.position - left_brush_point.position;
 
             Vector3 rightDeltaLocal = right_brush_offset.parent.InverseTransformVector(rightDeltaWorld);
             Vector3 leftDeltaLocal = left_brush_offset.parent.InverseTransformVector(leftDeltaWorld);
@@ -42,7 +48,7 @@ public class Offset_Manager : MonoBehaviour
 
         
 
-
+        
         if (Input.GetKeyUp("t"))
         {
             Vector3 palm_position = right_hand.bounds.center;
@@ -52,6 +58,8 @@ public class Offset_Manager : MonoBehaviour
             Vector3 tablePos = table_offset.position;
             tablePos.y -= height_delta - manual_table_offset;
             table_offset.position = tablePos;
+            //just manually move everything else around to make this look alright
+            ramp_offset.position = palm_position;
         }
 
 
